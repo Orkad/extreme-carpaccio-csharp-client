@@ -22,6 +22,7 @@ namespace xCarpaccio.client
             {"NL",0.20m },
             {"BE",0.24m },
             {"EL",0.20m },
+            {"CZ",0.19m },
         };
 
         /// <summary>
@@ -79,7 +80,8 @@ namespace xCarpaccio.client
             if (taxeForCountry == null)
                 return null;
             bill.total += bill.total * taxeForCountry.Value;
-            bill.total = ApplyReduction(bill.total);
+            if(order.Reduction != "PAY THE PRICE")
+                bill.total = ApplyReduction(bill.total);
             return bill;
         }
 
