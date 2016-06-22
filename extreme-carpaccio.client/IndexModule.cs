@@ -15,21 +15,28 @@ namespace xCarpaccio.client
 
             Post["/order"] = _ =>
             {
-                using (var reader = new StreamReader(Request.Body, Encoding.UTF8))
+                try
                 {
-                    Console.WriteLine("Order received: {0}", reader.ReadToEnd());
+                    using (var reader = new StreamReader(Request.Body, Encoding.UTF8))
+                    {
+                        Console.WriteLine("Order received: {0}", reader.ReadToEnd());
+                    }
+
+                    // Order loading
+                    var order = this.Bind<Order>();
+                    // Ca
+                    var bill = new BillCalculator().Calculate(order);
+
+                    //TODO: do something with order and return a bill if possible
+
+                    // If you manage to get the result, return a Bill object (JSON serialization is done automagically)
+                    // Else return a HTTP 404 error : return Negotiate.WithStatusCode(HttpStatusCode.NotFound);
+                    return bill;
                 }
-
-                // Order loading
-                var order = this.Bind<Order>();
-                // Ca
-                var bill = new BillCalculator().Calculate(order);
-
-                //TODO: do something with order and return a bill if possible
-                
-                // If you manage to get the result, return a Bill object (JSON serialization is done automagically)
-                // Else return a HTTP 404 error : return Negotiate.WithStatusCode(HttpStatusCode.NotFound);
-                return bill;
+                catch (Exception)
+                {
+                    return null;
+                }
             };
 
             Post["/feedback"] = _ =>
