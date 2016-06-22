@@ -12,11 +12,16 @@ namespace xCarpaccio.client
         /// </summary>
         private static readonly Dictionary<string, decimal?> _countryTaxesAssoc = new Dictionary<string, decimal?>
         {
-            {"DE",20 },
-            {"UK",21 },
-            {"FR",20 },
-            {"IT",25 },
-
+            {"DE",0.20m },
+            {"UK",0.21m },
+            {"FR",0.20m },
+            {"IT",0.25m },
+            {"ES",0.19m },
+            {"PL",0.21m },
+            {"RO",0.20m },
+            {"NL",0.20m },
+            {"BE",0.24m },
+            {"EL",0.20m },
         };
 
         /// <summary>
@@ -40,18 +45,18 @@ namespace xCarpaccio.client
         {
             decimal reduction;
             if (total >= 50000)
-                reduction = (decimal)0.15;
+                reduction = 0.15m;
             else if (total >= 10000)
-                reduction = (decimal)0.1;
+                reduction = 0.1m;
             else if (total >= 7000)
-                reduction = (decimal)0.07;
+                reduction = 0.07m;
             else if (total >= 5000)
-                reduction = (decimal)0.05;
-            else if (total >= 10000)
-                reduction = (decimal)0.03;
+                reduction = 0.05m;
+            else if (total >= 1000)
+                reduction = 0.03m;
             else
                 reduction = 0;
-            return total - reduction*total;
+            return total - reduction* total;
         }
 
         /// <summary>
@@ -73,7 +78,7 @@ namespace xCarpaccio.client
             var taxeForCountry = GetTaxeForCountry(order.Country);
             if (taxeForCountry == null)
                 return null;
-            bill.total *= taxeForCountry.Value;
+            bill.total += bill.total * taxeForCountry.Value;
             bill.total = ApplyReduction(bill.total);
             return bill;
         }

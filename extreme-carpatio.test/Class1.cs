@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using xCarpaccio.client;
 
 namespace extreme_carpatio.test
 {
@@ -19,7 +20,8 @@ namespace extreme_carpatio.test
         [Test]
         public void TestReduction()
         {
-            
+            Assert.AreEqual(BillCalculator.ApplyReduction(60000),60000/0.15);
+            Assert.AreEqual(BillCalculator.ApplyReduction(20000), 20000 /0.10);
         }
     }
 }
