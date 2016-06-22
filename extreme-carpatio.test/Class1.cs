@@ -7,10 +7,17 @@ using NUnit.Framework;
 
 namespace extreme_carpatio.test
 {
-    public class Class1
+    public class Tests
     {
         [Test]
         public void EmptyTest()
+        {
+            Assert.IsFalse(false);
+            Assert.That(false,Is.False);
+        }
+
+        [Test]
+        public void TestReduction()
         {
             
         }

@@ -20,12 +20,15 @@ namespace xCarpaccio.client
                     Console.WriteLine("Order received: {0}", reader.ReadToEnd());
                 }
 
+                // Order loading
                 var order = this.Bind<Order>();
-                Bill bill = null;
+                // Ca
+                var bill = new BillCalculator().Calculate(order);
+
                 //TODO: do something with order and return a bill if possible
+                
                 // If you manage to get the result, return a Bill object (JSON serialization is done automagically)
                 // Else return a HTTP 404 error : return Negotiate.WithStatusCode(HttpStatusCode.NotFound);
-                
                 return bill;
             };
 

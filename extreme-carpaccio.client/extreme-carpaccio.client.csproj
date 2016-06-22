@@ -60,6 +60,7 @@
     <Compile Include="Order.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BillCalculator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
